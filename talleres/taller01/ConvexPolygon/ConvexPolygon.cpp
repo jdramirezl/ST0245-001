@@ -120,6 +120,6 @@ public:
 
 
 int main(){
-    vector<Point2D> points {Point2D(8,-1), Point2D(2,4), Point2D(8, 3),  Point2D(-3, -4), Point2D(0, 7)};
+    vector<Point2D> points {Point2D(-8,-3),Point2D(-4,-4),Point2D(2,2),Point2D(-1,1),Point2D(-6,-2)};
     Polygon triangle(points);
 }
