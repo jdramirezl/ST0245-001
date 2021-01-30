@@ -22,4 +22,4 @@ class Date:
             print("Las fechas son iguales")
 
     def __str__(self):
-        return ("Date: "+str(self.day)+"/"+str(self.month)+"/"+str(self.year))
+        return (f"Date: {self.day}/{self.month}/str(self.year}")
