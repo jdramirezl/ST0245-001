@@ -1,21 +1,22 @@
-#include "LinkedList.h"
+#include "BeeList.hpp"
 #include <iostream>
 #include <bits/stdc++.h>
 #include <cassert>
 #define D(x) cout << #x << " = " << x << endl;
 using namespace std;
 
+struct Bee;
 struct Node;
 
 
-void LinkedList::push(int val){ //Dos nodos Pointer-to-pointer, deme la referencia de la referencia de Head
+void BeeList::push_front(Bee given_bee){ //Dos nodos Pointer-to-pointer, deme la referencia de la referencia de Head
     Node *new_node = new Node();
-    new_node -> data = val;
+    new_node -> bee = &given_bee;
     new_node -> next = head;
     head = new_node;
 }
 
-void LinkedList::insert(int val, int pos){
+void BeeList::insert(Bee val, int pos){
     Node *prev = head;
 
     for(int i = 0; prev != nullptr && i<pos-1; ++i){
@@ -28,14 +29,14 @@ void LinkedList::insert(int val, int pos){
     }
 
     Node *new_node = new Node();
-    new_node -> data = val;
+    new_node -> bee = &val;
     new_node -> next = prev -> next;
     prev -> next = new_node;
 }
 
-void LinkedList::append(int val){
+void BeeList::push_back(Bee val){
     Node *new_node = new Node(), *temp;
-    new_node -> data = val;
+    new_node -> bee = &val;
     new_node -> next = nullptr;
 
     temp = head;
@@ -52,34 +53,34 @@ void LinkedList::append(int val){
 
 
 
-void LinkedList::printList(){
+void BeeList::printList(){
     Node *node = head;
     while (node != nullptr){
-        cout << " " << node -> data << endl;
+        cout << "Bee coordinates: (" << node -> bee -> x << ", " << node -> bee -> y << ")" << endl;
         node = node->next;
     }
 }
 
-void LinkedList::deleteNode(int key){
+void BeeList::deleteNode(Bee key){
     Node *temp = head, *prev;
 
     if(temp == nullptr){
         return;
     }
 
-    if(temp -> data == key){
+    if(temp -> bee == &key){
         head = temp -> next;
         free(temp);
         return;
     }
 
-    while(temp -> next != nullptr && temp -> data != key){
+    while(temp -> next != nullptr && temp -> bee != &key){
         prev = temp;
         temp = temp -> next;
     }
 
     if (temp -> next == nullptr){
-        cout << "Value not in LinkedList" << endl;
+        cout << "Value not in BeeList" << endl;
         return;
     }
 
@@ -88,7 +89,7 @@ void LinkedList::deleteNode(int key){
     free(temp);
 }
 
-void LinkedList::deleteNodeAt(int pos){
+void BeeList::deleteNodeAt(int pos){
     Node *temp = head, *prev;
 
     if(temp == nullptr){
@@ -108,7 +109,7 @@ void LinkedList::deleteNodeAt(int pos){
     }
 
     if (prev == nullptr || prev -> next == nullptr) {
-        cout << "Position exceeds LinkedList" << endl;
+        cout << "Position exceeds BeeList" << endl;
         return;
     }
 
@@ -119,7 +120,7 @@ void LinkedList::deleteNodeAt(int pos){
     prev -> next = conect;
 }
 
-void LinkedList::deleteList(){
+void BeeList::deleteList(){
     Node *next = head, *now;
 
     if(head == nullptr) return;
@@ -133,7 +134,7 @@ void LinkedList::deleteList(){
     head = nullptr;
 }
 
-int LinkedList::length(){
+int BeeList::length(){
     Node *now = head;
     int count = 0;
 
@@ -147,20 +148,26 @@ int LinkedList::length(){
     return count;
 }
 
-bool LinkedList::find(int key){
+Bee *BeeList::find(Bee key){
     Node *now = head;
 
-    if(head == nullptr) return false;
+    if(head == nullptr) {
+        cout << "Bee not found" << endl;
+        return nullptr;
+    }
 
     while(now != nullptr){
-        if (now -> data == key) return true;
+        if (now -> bee == &key) {
+            return now -> bee;
+        }
         now = now -> next;
     }
 
-    return false;
+    cout << "Bee not found" << endl;
+    return nullptr;
 }
 
-int LinkedList::get(int pos){
+Bee* BeeList::get(int pos){
     Node *prev = head;
 
     for(int i = 0; prev != nullptr && i<pos; ++i){
@@ -172,10 +179,10 @@ int LinkedList::get(int pos){
         assert(0);
     }
 
-    return prev -> data;
+    return prev -> bee;
 }
 
-Node* LinkedList::getNode(int pos){
+Node* BeeList::getNode(int pos){
     Node *prev = head;
 
     for(int i = 0; prev != nullptr && i<pos-1; ++i){
@@ -190,7 +197,7 @@ Node* LinkedList::getNode(int pos){
     return prev;
 }
 
-void LinkedList::reverse(){
+void BeeList::reverse(){
     if (head == nullptr) return ;
 
     Node *node = head, *anterior = nullptr, *next;
@@ -205,7 +212,7 @@ void LinkedList::reverse(){
     head = anterior;
 }
 
-void LinkedList::set(int val, int pos){
+void BeeList::set(Bee val, int pos){
     Node *prev = head;
 
     for(int i = 0; prev != nullptr && i<pos-1; ++i){
@@ -217,5 +224,5 @@ void LinkedList::set(int val, int pos){
         return;
     }
 
-    prev -> next -> data = val;
+    prev -> next -> bee = &val;
 }
