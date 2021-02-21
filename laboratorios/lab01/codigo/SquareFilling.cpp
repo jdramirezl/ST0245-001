@@ -34,21 +34,21 @@ void clear(vvi &matrix, int i, int j)
     matrix[i][j] = " ";
 }
 
-string randomize(vvi &matrix, boolean vertical, int i, int j){
-    int choice;
-
-    if (vertical) {
+vector<string> randomize(vvi &matrix, int i){
+    vector<string> cols(2," ");
+    int choice = rand(5);
+    while (i > 0 && colors[choice] == matrix[0][i - 1]){
         choice = rand(1,5);
-        while (j != 0 && colors[choice] == colors[matrix[i][j-1]] || colors[choice] == colors[matrix[i][j-1]]){
-            choice = rand(1,5);
-        }
     }
-    else{
-
+    cols[0] = colors[choice];
+    choice = rand(5);
+    while (colors[choice] == cols[0] or (i > 0 && colors[choice] == matrix[1][i - 1])){
+        choice = rand(1,5);
     }
-
-    return choice;
+    cols[1] = colors[choice];
+    return cols;
 }
+
 
 
 int fill(vvi &square, int i, bool vertical)
