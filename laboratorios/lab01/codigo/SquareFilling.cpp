@@ -39,7 +39,7 @@ string randomize(vvi &matrix, boolean vertical, int i, int j){
 
     if (vertical) {
         choice = rand(1,5);
-        while (i != 0 && colors[choice] == colors[matrix[0][i-1]] || colors[choice] == colors[matrix[1][i-1]]){
+        while (j != 0 && colors[choice] == colors[matrix[i][j-1]] || colors[choice] == colors[matrix[i][j-1]]){
             choice = rand(1,5);
         }
     }
