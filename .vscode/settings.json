@@ -43,5 +43,6 @@
         "typeinfo": "cpp",
         "random": "cpp",
         "unordered_set": "cpp"
-    }
+    },
+    "python.pythonPath": "C:\\Users\\Julian Ramirez\\.virtualenvs\\Desktop-k-p1TqUp\\Scripts\\python.exe"
 }
