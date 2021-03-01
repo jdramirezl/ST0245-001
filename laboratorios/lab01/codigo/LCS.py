@@ -13,5 +13,5 @@ def lcs(word1, word2, longest, shortest):
 
 
 if __name__ == '__main__':
-    args = [(x, str(randrange(x-100, x)), str(randrange(x-100, x))) for x in range(1000, 20000, 1000)]
+    args = [(x, str(randrange(x-100, x)), str(randrange(x-100, x))) for x in range(10000, 300000, 10000)]
     Graph(lcs, args, "Longest Common Subsequence")
