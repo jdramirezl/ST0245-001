@@ -6,7 +6,7 @@ import numba
 class SC:
     def __init__(self, data):
         self.nparr = np.array(data)
-        self.scale_c = 0.999
+        self.scale_c = 0.70
         self.crop_c()
     
     def return_list(self):
@@ -27,8 +27,8 @@ class SC:
         
         
         self.nparr = self.nparr.astype('float32')
-        print(self.nparr.shape, self.nparr.ndim)
-        print(filter_dv.shape, filter_dv.ndim)
+        #print(self.nparr.shape, self.nparr.ndim)
+        #print(filter_dv.shape, filter_dv.ndim)
 
         energy_map = np.absolute(convolve(self.nparr, filter_du, mode='constant', cval=0.0)) + np.absolute(convolve(self.nparr, filter_dv, mode='constant', cval=0.0))
         
@@ -53,20 +53,20 @@ class SC:
             mask[i, j] = False
             j = backtrack[i, j]
 
-        print("mask")
-        print(self.nparr.shape, self.nparr.ndim)
+        #print("mask")
+        #print(self.nparr.shape, self.nparr.ndim)
         
-        print("Arr")
-        print(self.nparr.shape, self.nparr.ndim)
+        #print("Arr")
+        #print(self.nparr.shape, self.nparr.ndim)
         # mask = np.stack([mask], axis=0)
         self.nparr = self.nparr[mask]
         
-        print("Arr2")
-        print(self.nparr.shape, self.nparr.ndim)
+        #print("Arr2")
+        #print(self.nparr.shape, self.nparr.ndim)
         self.nparr = self.nparr.reshape((r, c - 1))
         
-        print("Arr3")
-        print(self.nparr.shape, self.nparr.ndim)
+        #print("Arr3")
+        #print(self.nparr.shape, self.nparr.ndim)
 
     @numba.jit
     def minimum_seam(self):
