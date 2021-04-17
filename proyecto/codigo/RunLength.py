@@ -1,5 +1,4 @@
 
-# TODO: CHANGE 1'S TO CHAR
 
 
 class RunLength:

@@ -30,6 +30,7 @@ class SC:
         #print(self.nparr.shape, self.nparr.ndim)
         #print(filter_dv.shape, filter_dv.ndim)
 
+        # N*M
         energy_map = np.absolute(convolve(self.nparr, filter_du, mode='constant', cval=0.0)) + np.absolute(convolve(self.nparr, filter_dv, mode='constant', cval=0.0))
         
         return energy_map
