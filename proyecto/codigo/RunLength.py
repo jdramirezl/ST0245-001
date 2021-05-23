@@ -1,6 +1,3 @@
-
-
-
 class RunLength:
     @staticmethod
     def compress(input):

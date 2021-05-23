@@ -43,7 +43,7 @@ class File:
                 self.data.append(row)
 
     def to_int(self):
-        print(self.filename)
+        #print(self.filename)
         self.data = [[int(value) for value in row] for row in self.data]
 
     def seam_carving(self):
