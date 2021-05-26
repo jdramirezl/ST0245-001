@@ -54,28 +54,17 @@ class SC:
             mask[i, j] = False
             j = backtrack[i, j]
 
-        #print("mask")
-        #print(self.nparr.shape, self.nparr.ndim)
-        
-        #print("Arr")
-        #print(self.nparr.shape, self.nparr.ndim)
-        # mask = np.stack([mask], axis=0)
         self.nparr = self.nparr[mask]
-        
-        #print("Arr2")
-        #print(self.nparr.shape, self.nparr.ndim)
         self.nparr = self.nparr.reshape((r, c - 1))
-        
-        #print("Arr3")
-        #print(self.nparr.shape, self.nparr.ndim)
+
 
     @numba.jit
     def minimum_seam(self):
         r, c = self.nparr.shape
-        energy_map = self.calc_energy()
+        energy_map = self.calc_energy() # N * M
 
-        M = energy_map.copy()
-        backtrack = np.zeros_like(M, dtype=np.int)
+        M = energy_map.copy() # N * M
+        backtrack = np.zeros_like(M, dtype=np.int) # N * M
 
         for i in range(1, r):
             for j in range(0, c):
@@ -91,3 +80,34 @@ class SC:
                 M[i, j] += min_energy
 
         return M, backtrack
+
+
+'''
+    @numba.jit
+    def carve_column(self):
+        r, c = self.nparr.shape
+
+        M, backtrack = self.minimum_seam()
+        mask = np.ones((r, c), dtype=np.bool)
+
+        j = np.argmin(M[-1])
+        for i in reversed(range(r)):
+            mask[i, j] = False
+            j = backtrack[i, j]
+
+        #print("mask")
+        #print(self.nparr.shape, self.nparr.ndim)
+        
+        #print("Arr")
+        #print(self.nparr.shape, self.nparr.ndim)
+        # mask = np.stack([mask], axis=0)
+        self.nparr = self.nparr[mask]
+        
+        #print("Arr2")
+        #print(self.nparr.shape, self.nparr.ndim)
+        self.nparr = self.nparr.reshape((r, c - 1))
+        
+        #print("Arr3")
+        #print(self.nparr.shape, self.nparr.ndim)
+        
+'''
